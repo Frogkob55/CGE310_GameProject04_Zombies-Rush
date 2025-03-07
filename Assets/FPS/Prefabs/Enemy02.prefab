@@ -249,11 +249,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dda33df5793f9f3429fcfddee0d60a08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 30
+  maxHealth: 50
   materialType: 1
   smallExplosionEffect: {fileID: 1000013462590818, guid: ecdd96beb7f93494880c052dfccf9dc1, type: 3}
   characterHitSound: {fileID: 0}
   destructionSound: {fileID: 0}
   damage: 5
   attackCooldown: 1.5
-  moveSpeed: 4.5
+  moveSpeed: 6

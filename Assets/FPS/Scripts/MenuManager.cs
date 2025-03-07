@@ -19,7 +19,7 @@ public class MenuManager : MonoBehaviour
 
     public void PlayGame()
     {
-        SceneManager.LoadScene("Test");
+        SceneManager.LoadScene("Leveldesign01");
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
     }

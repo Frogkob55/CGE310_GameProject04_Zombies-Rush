@@ -6021,6 +6021,10 @@ PrefabInstance:
       propertyPath: maxHealth
       value: 150
       objectReference: {fileID: 0}
+    - target: {fileID: 1391535765181227360, guid: 3b7d405fcaaefd14d96662a3b048b6bd, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -4.03
+      objectReference: {fileID: 0}
     - target: {fileID: 1708035358391110340, guid: 3b7d405fcaaefd14d96662a3b048b6bd, type: 3}
       propertyPath: menuButton
       value: 

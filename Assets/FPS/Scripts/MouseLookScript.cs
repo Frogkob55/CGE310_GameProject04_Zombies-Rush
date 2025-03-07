@@ -91,8 +91,8 @@ void FixedUpdate(){
 
 private float rotationYVelocity, cameraXVelocity;
 [Tooltip("Speed that determines how much camera rotation will lag behind mouse movement.")]
-    public float yRotationSpeed = 0.05f; 
-    public float xCameraSpeed = 0.05f;
+    public float yRotationSpeed = 0.03f; 
+    public float xCameraSpeed = 0.03f;
 
     [HideInInspector]
 public float wantedYRotation;
@@ -114,8 +114,8 @@ public float bottomAngleView = -45;
  */
 void MouseInputMovement(){
 
-        wantedYRotation += Input.GetAxis("Mouse X") * (mouseSensitvity * 0.2f);
-        wantedCameraXRotation -= Input.GetAxis("Mouse Y") * (mouseSensitvity * 0.2f);
+        wantedYRotation += Input.GetAxis("Mouse X") * (mouseSensitvity * 0.1f);
+        wantedCameraXRotation -= Input.GetAxis("Mouse Y") * (mouseSensitvity * 0.1f);
 
         wantedCameraXRotation = Mathf.Clamp(wantedCameraXRotation, bottomAngleView, topAngleView);
 

@@ -115,7 +115,7 @@ public class EnemySpawner : MonoBehaviour
     {
         Debug.Log("You Win!");
         winText.gameObject.SetActive(true);
-        waveText.text = "All Waves Cleared!"; // 🆕 เปลี่ยนข้อความ Wave เป็นชนะ
+        waveText.text = "All Waves Cleared!";
         Invoke("LoadMenuScene", 5f);
     }
 
