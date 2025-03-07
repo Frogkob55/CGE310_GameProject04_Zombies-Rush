@@ -2296,7 +2296,7 @@ GameObject:
   - component: {fileID: -4789155274162853675}
   m_Layer: 0
   m_Name: NewGun_auto
-  m_TagString: Weapon
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2338,7 +2338,7 @@ MonoBehaviour:
   mls: {fileID: 0}
   walkingSpeed: 3
   runningSpeed: 5
-  bulletsIHave: 300
+  bulletsIHave: 100
   bulletsInTheGun: 30
   amountOfBulletsPerLoad: 30
   currentGunPosition: {x: 0, y: 0, z: 0}
@@ -2390,6 +2390,7 @@ MonoBehaviour:
   muzzelSpawn: {fileID: 110108}
   reloadChangeBulletsTime: 1.5
   HUD_bullets: {fileID: 0}
+  maxBulletsIHave: 300
   horizontal_crosshair: {fileID: 2800000, guid: e1aa4c90445944348a112c3b7fa4b318, type: 3}
   vertical_crosshair: {fileID: 2800000, guid: 3f8b669e9880644cbb903f67bbc9f824, type: 3}
   top_pos_crosshair: {x: -2.7, y: -20.8}
