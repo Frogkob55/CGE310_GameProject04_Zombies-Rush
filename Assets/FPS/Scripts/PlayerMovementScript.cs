@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.InputSystem;
+
+
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerMovementScript : MonoBehaviour {
 	Rigidbody rb;
@@ -160,21 +163,25 @@ public class PlayerMovementScript : MonoBehaviour {
 		return false;
 	}
 
-	/*
+    /*
 	* If player toggle the crouch it will scale the player to appear that is crouching
 	*/
-	void Crouching(){
-		if(Input.GetKey(KeyCode.C)){
-			transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(1,0.6f,1), Time.deltaTime * 15);
-		}
-		else{
-			transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(1,1,1), Time.deltaTime * 15);
+    
+    void Crouching()
+    {
+        if (Keyboard.current.leftCtrlKey.isPressed) // ใช้ New Input System
+        {
+            Debug.Log("กด Right Ctrl -> กำลังย่อตัว");
+            transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(1, 0.6f, 1), Time.deltaTime * 15);
+        }
+        else
+        {
+            transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(1, 1, 1), Time.deltaTime * 15);
+        }
+    }
 
-		}
-	}
 
-
-	[Tooltip("The maximum speed you want to achieve")]
+    [Tooltip("The maximum speed you want to achieve")]
 	public int maxSpeed = 5;
 	[Tooltip("The higher the number the faster it will stop")]
 	public float deaccelerationSpeed = 15.0f;

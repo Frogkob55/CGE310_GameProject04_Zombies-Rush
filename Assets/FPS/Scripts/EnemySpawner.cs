@@ -25,7 +25,7 @@ public class EnemySpawner : MonoBehaviour
     public float timeBetweenWaves = 5f;
 
     [Header("UI Elements")]
-    public Text waveText; // 🆕 เพิ่ม UI แสดง Wave
+    public Text waveText;
     public Text winText;
 
     private int currentWave = 0;
@@ -35,7 +35,7 @@ public class EnemySpawner : MonoBehaviour
     private void Start()
     {
         winText.gameObject.SetActive(false);
-        UpdateWaveText(); // 🆕 แสดงข้อความ Wave แรก
+        UpdateWaveText();
         StartCoroutine(StartWave());
     }
 
@@ -44,7 +44,7 @@ public class EnemySpawner : MonoBehaviour
         while (currentWave < waveEnemies.Count)
         {
             currentWave++;
-            UpdateWaveText(); // 🆕 อัปเดต UI แสดง Wave
+            UpdateWaveText();
 
             int enemiesThisWave = initialEnemiesPerWave + (currentWave * 2);
             Debug.Log($"Starting Wave {currentWave}, Enemies: {enemiesThisWave}");
@@ -115,7 +115,7 @@ public class EnemySpawner : MonoBehaviour
     {
         Debug.Log("You Win!");
         winText.gameObject.SetActive(true);
-        waveText.text = "All Waves Cleared!"; // 🆕 เปลี่ยนข้อความ Wave เป็นชนะ
+        waveText.text = "All Waves Cleared!";
         Invoke("LoadMenuScene", 5f);
     }
 

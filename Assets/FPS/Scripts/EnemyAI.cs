@@ -77,20 +77,6 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-    private void DestroyObject()
-    {
-        if (destructionSound != null)
-        {
-            destructionSound.Play();
-        }
-
-        if (smallExplosionEffect != null)
-        {
-            Instantiate(smallExplosionEffect, transform.position, transform.rotation);
-        }
-
-        Destroy(gameObject);
-    }
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -120,4 +106,34 @@ public class EnemyAI : MonoBehaviour
         canAttack = true;
         agent.isStopped = false;
     }
+
+    private EnemySpawner spawner;
+
+    public void SetSpawner(EnemySpawner _spawner)
+    {
+        spawner = _spawner;
+    }
+
+    private void DestroyObject()
+    {
+        if (spawner != null)
+        {
+            spawner.RemoveEnemy(gameObject);
+        }
+
+        if (destructionSound != null)
+        {
+            destructionSound.Play();
+        }
+
+        if (smallExplosionEffect != null)
+        {
+            Instantiate(smallExplosionEffect, transform.position, transform.rotation);
+        }
+
+        Destroy(gameObject);
+    }
+
+
+
 }

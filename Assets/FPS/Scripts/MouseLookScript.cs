@@ -59,9 +59,9 @@ public class MouseLookScript : MonoBehaviour {
 	[Tooltip("Current mouse sensivity, changes in the weapon properties")]
 	public float mouseSensitvity = 0;
 	[HideInInspector]
-	public float mouseSensitvity_notAiming = 300;
+	public float mouseSensitvity_notAiming = 100;
 	[HideInInspector]
-	public float mouseSensitvity_aiming = 50;
+	public float mouseSensitvity_aiming = 20;
 
 /*
 * FixedUpdate()
@@ -91,9 +91,10 @@ void FixedUpdate(){
 
 private float rotationYVelocity, cameraXVelocity;
 [Tooltip("Speed that determines how much camera rotation will lag behind mouse movement.")]
-public float yRotationSpeed, xCameraSpeed;
+    public float yRotationSpeed = 0.05f; 
+    public float xCameraSpeed = 0.05f;
 
-[HideInInspector]
+    [HideInInspector]
 public float wantedYRotation;
 [HideInInspector]
 public float currentYRotation;
@@ -113,11 +114,10 @@ public float bottomAngleView = -45;
  */
 void MouseInputMovement(){
 
-	wantedYRotation += Input.GetAxis("Mouse X") * mouseSensitvity;
+        wantedYRotation += Input.GetAxis("Mouse X") * (mouseSensitvity * 0.2f);
+        wantedCameraXRotation -= Input.GetAxis("Mouse Y") * (mouseSensitvity * 0.2f);
 
-	wantedCameraXRotation -= Input.GetAxis("Mouse Y") * mouseSensitvity;
-
-	wantedCameraXRotation = Mathf.Clamp(wantedCameraXRotation, bottomAngleView, topAngleView);
+        wantedCameraXRotation = Mathf.Clamp(wantedCameraXRotation, bottomAngleView, topAngleView);
 
 }
 

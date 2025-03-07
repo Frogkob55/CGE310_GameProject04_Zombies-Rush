@@ -18,8 +18,8 @@ public WeaponType currentWeaponType;
 
 
 
-
-private int damage; //Damage dealt by a weapon
+    
+    private int damage; //Damage dealt by a weapon
 	[Tooltip("Selects type of waepon to shoot rapidly or one bullet per click.")]
 	public GunStyles currentStyle;
 	[HideInInspector]
@@ -545,11 +545,12 @@ private void ShootMethod()
 		}
 	}
 
-	/*
+  
+    /*
 	 * Setting the number of bullets to the hud UI gameobject if there is one.
 	 * And drawing CrossHair from here.
 	 */
-	[Tooltip("HUD bullets to display bullet count on screen. Will be find under name 'HUD_bullets' in scene.")]
+    [Tooltip("HUD bullets to display bullet count on screen. Will be find under name 'HUD_bullets' in scene.")]
 	public TextMesh HUD_bullets;
 	void OnGUI(){
 		if(!HUD_bullets){
@@ -566,7 +567,45 @@ private void ShootMethod()
 		DrawCrosshair();
 	}
 
-	[Header("Crosshair properties")]
+    // Existing variables and methods...
+
+    [Header("Ammo Pickup Properties")]
+    [Tooltip("Maximum bullets the player can carry.")]
+    public float maxBulletsIHave = 100;
+
+    // Method to add bullets to the player's inventory
+    public void AddBullets(float amount)
+    {
+        bulletsIHave += amount;
+        if (bulletsIHave > maxBulletsIHave)
+        {
+            bulletsIHave = maxBulletsIHave; // Cap the bullets to the maximum allowed
+        }
+        UpdateHUD();
+    }
+
+    // Method to update the HUD with the current bullet count
+    private void UpdateHUD()
+    {
+        if (HUD_bullets)
+        {
+            HUD_bullets.text = bulletsIHave.ToString() + " - " + bulletsInTheGun.ToString();
+        }
+    }
+
+    // Example method to simulate picking up ammo
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("AmmoPickup"))
+        {
+            AddBullets(10); // Add 10 bullets, for example
+            Destroy(other.gameObject); // Remove the ammo pickup from the scene
+        }
+    }
+
+    // Existing methods...
+
+    [Header("Crosshair properties")]
 	public Texture horizontal_crosshair, vertical_crosshair;
 	public Vector2 top_pos_crosshair, bottom_pos_crosshair, left_pos_crosshair, right_pos_crosshair;
 	public Vector2 size_crosshair_vertical = new Vector2(1,1), size_crosshair_horizontal = new Vector2(1,1);
