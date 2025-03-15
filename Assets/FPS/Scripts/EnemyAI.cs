@@ -17,8 +17,9 @@ public class EnemyAI : MonoBehaviour
     public MaterialType materialType;
     public GameObject smallExplosionEffect;
 
-    public AudioSource characterHitSound;
-    public AudioSource destructionSound;
+    private AudioSource audioSource;
+    public AudioClip hitSoundClip;
+    public AudioClip destructionSoundClip;
 
     private NavMeshAgent agent;
     private Transform player;
@@ -27,7 +28,9 @@ public class EnemyAI : MonoBehaviour
     public float attackCooldown = 1.5f;
     private bool canAttack = true;
 
-    public float moveSpeed = 3.5f; 
+    public float moveSpeed = 3.5f;
+
+    private bool isDying = false; 
 
     private void Start()
     {
@@ -40,17 +43,27 @@ public class EnemyAI : MonoBehaviour
         }
         else
         {
-            UnityEngine.Debug.LogError("Player not found! Make sure your player has the 'Player' tag.");
+            Debug.LogError("Player not found! Make sure your player has the 'Player' tag.");
         }
 
         agent = GetComponent<NavMeshAgent>();
         if (agent == null)
         {
-            UnityEngine.Debug.LogError("NavMeshAgent component not found on enemy!");
+            Debug.LogError("NavMeshAgent component not found on enemy!");
         }
         else
         {
-            agent.speed = moveSpeed; 
+            agent.speed = moveSpeed;
+        }
+
+        
+        if (GetComponent<AudioSource>() == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
+        else
+        {
+            audioSource = GetComponent<AudioSource>();
         }
     }
 
@@ -64,11 +77,14 @@ public class EnemyAI : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        if (isDying) return; 
+
         currentHealth -= damage;
 
-        if (characterHitSound != null)
+        
+        if (hitSoundClip != null && audioSource != null && !audioSource.isPlaying)
         {
-            characterHitSound.Play();
+            audioSource.PlayOneShot(hitSoundClip);
         }
 
         if (currentHealth <= 0)
@@ -77,14 +93,13 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-
     private void OnCollisionEnter(Collision collision)
     {
-        UnityEngine.Debug.Log("Enemy collided with: " + collision.gameObject.name);
+        Debug.Log("Enemy collided with: " + collision.gameObject.name);
 
         if (collision.gameObject.CompareTag("Player") && canAttack)
         {
-            UnityEngine.Debug.Log("Enemy hit Player!");
+            Debug.Log("Enemy hit Player!");
 
             PlayerHealth playerHealth = collision.gameObject.GetComponent<PlayerHealth>();
             if (playerHealth != null)
@@ -116,24 +131,27 @@ public class EnemyAI : MonoBehaviour
 
     private void DestroyObject()
     {
+        if (isDying) return; 
+        isDying = true;
+
         if (spawner != null)
         {
             spawner.RemoveEnemy(gameObject);
         }
 
-        if (destructionSound != null)
-        {
-            destructionSound.Play();
-        }
-
+        
         if (smallExplosionEffect != null)
         {
             Instantiate(smallExplosionEffect, transform.position, transform.rotation);
         }
 
+        
+        if (destructionSoundClip != null && audioSource != null)
+        {
+            AudioSource.PlayClipAtPoint(destructionSoundClip, transform.position);
+        }
+
+        
         Destroy(gameObject);
     }
-
-
-
 }

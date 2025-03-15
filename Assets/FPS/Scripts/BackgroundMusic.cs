@@ -2,19 +2,42 @@ using UnityEngine;
 
 public class BackgroundMusic : MonoBehaviour
 {
+    public static BackgroundMusic Instance;
     private AudioSource audioSource;
 
-    private void Start()
+    private void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject); 
+        }
+        else
+        {
+            Destroy(gameObject); 
+            return;
+        }
+
         audioSource = GetComponent<AudioSource>();
-        PlayBackgroundMusic();
+        if (audioSource == null)
+        {
+            Debug.LogError("AudioSource not found on BackgroundMusic object!");
+        }
     }
 
-    private void PlayBackgroundMusic()
+    public void SetVolume(float volume)
     {
         if (audioSource != null)
         {
-            audioSource.Play();
+            audioSource.volume = volume;
+        }
+    }
+
+    public void MuteMusic(bool mute)
+    {
+        if (audioSource != null)
+        {
+            audioSource.mute = mute;
         }
     }
 }
